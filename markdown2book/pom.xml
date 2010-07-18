@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <groupId>org.codehaus.markdown2book</groupId>
+    <artifactId>markdown2book-parent</artifactId>
+    <version>0.1-SNAPSHOT</version>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.codehaus.markdown2book</groupId>
+  <artifactId>markdown2book</artifactId>
+  <packaging>jar</packaging>
+  <name>Markdown2Book - Core Module</name>
+
+  <dependencies>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>1.4</version>
+    </dependency>
+    <dependency>
+      <groupId>org.markdownj</groupId>
+      <artifactId>markdownj</artifactId>
+      <version>0.3.0-1.0.2b4</version>
+    </dependency>
+    <!-- <dependency>
+      <groupId>net.mattryall.smartquotes</groupId>
+      <artifactId>smartquotes</artifactId>
+      <version>RELEASE</version>
+    </dependency> -->
+    <dependency>
+      <groupId>org.codehaus.groovy</groupId>
+      <artifactId>groovy-all</artifactId>
+      <version>1.6.7</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.7</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.spockframework</groupId>
+      <artifactId>spock-core</artifactId>
+      <version>0.4-groovy-1.6</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.gmaven</groupId>
+        <artifactId>gmaven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.spockframework</groupId>
+        <artifactId>spock-maven</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
+
