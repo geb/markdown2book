@@ -32,6 +32,7 @@ public class GenerateMojo extends AbstractMojo {
 		}
 		try {
 			new Generator(source, destination).generate();
+			getLog().info("Markdown2Book generated book from '" + source.getPath() + "' to '" + destination.getPath() + "'");
 		} catch (GenerationException e) {
 			throw new MojoExecutionException("Markdown2Book generation failed", e);
 		}
