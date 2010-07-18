@@ -21,7 +21,7 @@ public class GenerateMojo extends AbstractMojo {
 	/**
 	 * The directory to place the generated content in.
 	 *
-	 * @parameter default-value="target/book"
+	 * @parameter default-value="${project.build.directory}/book"
 	 */
 	private File destination;
 
