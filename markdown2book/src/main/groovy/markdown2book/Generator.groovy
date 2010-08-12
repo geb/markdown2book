@@ -5,6 +5,7 @@ import com.petebevin.markdown.MarkdownProcessor
 import java.util.regex.Pattern
 import groovy.text.SimpleTemplateEngine
 import org.apache.commons.io.FileUtils
+import java.nio.charset.Charset
 
 /**
  * @goal generate
@@ -31,8 +32,9 @@ class Generator {
 	
 	final File source
 	final File destination
+	final String charset
 	
-	Generator(File source, File destination) {
+	Generator(File source, File destination, String charset = Charset.defaultCharset().name()) {
 		if (source == null) {
 			fail("The 'source' argument can not be null")
 		}
@@ -42,6 +44,7 @@ class Generator {
 			fail("The 'destination' argument can not be null")
 		}
 		this.destination = destination
+		this.charset = charset
 	}
 	
 	void generate() throws GenerationException { 
@@ -130,7 +133,7 @@ class Generator {
 	
 	private readReferences() {
 		def referencesFile = new File(source, REFERENCES_FILE_NAME)
-		references = referencesFile.exists() ? referencesFile.text : ""
+		references = referencesFile.exists() ? referencesFile.getText(charset) : ""
 	}
 	
 	private processChapter(input, index) {
@@ -264,13 +267,13 @@ class Generator {
 		template
 	}
 	
-	private templatise(Map binding, templateName, destination) {
-		getOutputFile(destination) << templatise(binding, templateName)
+	private templatise(Map binding, String templateName, String destination) {
+		getOutputFile(destination).withWriter(charset) { templatise(binding, templateName, it) }
 	}
 	
-	private templatise(Map binding, templateName) {
+	private templatise(Map binding, String templateName, Writer writer) {
 		def template = getTemplate(templateName)
-		TEMPLATE_ENGINE.createTemplate(template.text).make(binding).toString()
+		TEMPLATE_ENGINE.createTemplate(template.getText(charset)).make(binding).writeTo(writer)
 	}
 	
 	private copyOtherFiles() {
