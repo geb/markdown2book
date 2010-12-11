@@ -24,7 +24,7 @@ dependencies {
 		"org.markdownj:markdownj:0.3.0-1.0.2b4"
 
     testCompile \
-		"org.spockframework:spock-core:0.5-groovy-1.6-SNAPSHOT"
+		"org.spockframework:spock-core:0.5-groovy-1.6"
 
 	deploy \
 		'org.apache.maven.wagon:wagon-webdav-jackrabbit:1.0-beta-6'
