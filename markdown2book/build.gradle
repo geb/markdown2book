@@ -1,5 +1,4 @@
 apply plugin: 'groovy'
-apply plugin: 'maven'
 
 group = 'org.codehaus.markdown2book'
 version = '1.0-SNAPSHOT'
@@ -10,7 +9,6 @@ configurations {
 
 repositories {
 	mavenCentral()
-	mavenRepo name: "spock-snapshots", urls: ["http://m2repo.spockframework.org/snapshots"]
 	mavenRepo name: 'markdownj', urls: ["http://scala-tools.org/repo-releases/"]
 }
 
@@ -19,7 +17,6 @@ dependencies {
 		'org.codehaus.groovy:groovy:1.6.7'
 
 	compile \
-		'org.grails:grails-bootstrap:1.2.0',
 		"commons-io:commons-io:1.4",
 		"org.markdownj:markdownj:0.3.0-1.0.2b4"
 
