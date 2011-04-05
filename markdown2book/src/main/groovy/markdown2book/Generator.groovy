@@ -47,9 +47,24 @@ class Generator {
 		this.charset = charset
 	}
 	
-	void generate() throws GenerationException { 
+	Generator clean() {
+		if (destination.exists()) {
+			if (destination.directory) {
+				if (!destination.deleteDir()) {
+					fail("failed to delete $destination")
+				}
+			} else {
+				fail("$destination exists and is not a directory")
+			}
+		}
+		
+		this
+	}
+	
+	Generator generate() throws GenerationException { 
 		try {
 			doGenerate()
+			this
 		} catch (Exception e) {
 			if (e instanceof GenerationException) {
 				throw e
@@ -58,14 +73,13 @@ class Generator {
 			}
 		}
 	}
-	
+
 	private doGenerate() {
 		if (destination.exists()) {
-			if (!destination.deleteDir()) {
-				fail("failed to delete $destination")
+			if (!destination.directory) {
+				fail("$destination exists and is not a directory")
 			}
-		}
-		if (!destination.mkdirs()) {
+		} else if (!destination.mkdirs()) {
 			fail("failed to make $destination")
 		}
 		
