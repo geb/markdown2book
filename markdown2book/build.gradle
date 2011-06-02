@@ -26,3 +26,7 @@ dependencies {
 	deploy \
 		'org.apache.maven.wagon:wagon-webdav-jackrabbit:1.0-beta-6'
 }
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '1.0-milestone-3'
+}
