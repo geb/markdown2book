@@ -1,7 +1,7 @@
 package markdown2book
 
-import com.petebevin.markdown.MarkdownProcessor
-/*import net.mattryall.smartquotes.SmartQuotes*/
+import org.pegdown.PegDownProcessor
+import org.pegdown.Extensions
 import java.util.regex.Pattern
 import groovy.text.SimpleTemplateEngine
 import org.apache.commons.io.FileUtils
@@ -15,7 +15,7 @@ class Generator {
 	private static MARKDOWN_EXTENSIONS = ['.markdown', '.md', '.mdown']
 	private static HEADING_PATTERN = Pattern.compile("^(#+)\\s+(.*)\$")
 	private static FILENAME_SUBSTITUTE_PATTERN = Pattern.compile("^(?:\\d+-)?(.*?)\\.(?:markdown|md|mdown)\$")
-	private static MARKDOWN_PROCESSOR = new MarkdownProcessor()
+	private static MARKDOWN_PROCESSOR = new PegDownProcessor(Extensions.ALL)
 	private static TEMPLATE_ENGINE = new SimpleTemplateEngine()
 	private static TEMPLATE_EXTENSION = "html"
 	private static ALL_TEMPLATE = "all." + TEMPLATE_EXTENSION
@@ -258,7 +258,7 @@ class Generator {
 	}
 	
 	private markdown(input) {
-		MARKDOWN_PROCESSOR.markdown(input)
+		MARKDOWN_PROCESSOR.markdownToHtml(input)
 	}
 	
 	private getChaptersSourceDir() {
