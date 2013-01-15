@@ -10,24 +10,24 @@ configurations {
 
 repositories {
 	mavenCentral()
-	mavenRepo name: 'markdownj', urls: ["http://scala-tools.org/repo-releases/"]
+	maven { url "http://m2repo.spockframework.org/snapshots" }
 }
 
 dependencies {
 	groovy \
-		'org.codehaus.groovy:groovy:1.6.7'
+		'org.codehaus.groovy:groovy:1.8.4'
 
 	compile \
 		"commons-io:commons-io:1.4",
-		"org.markdownj:markdownj:0.3.0-1.0.2b4"
+		"org.pegdown:pegdown:1.1.0"
 
     testCompile \
-		"org.spockframework:spock-core:0.5-groovy-1.6"
+		"org.spockframework:spock-core:0.6-groovy-1.8-SNAPSHOT"
 
 	deploy \
 		'org.apache.maven.wagon:wagon-webdav-jackrabbit:1.0-beta-6'
 }
 
 task wrapper(type: Wrapper) {
-	gradleVersion = '1.0-milestone-3'
+	gradleVersion = '1.0-milestone-7'
 }
