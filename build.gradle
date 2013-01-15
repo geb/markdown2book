@@ -4,6 +4,8 @@ apply plugin: "idea"
 apply from: "$rootDir/gradle/idea.gradle"
 apply plugin: "signing"
 
+archivesBaseName = "markdown2book"
+description = "The documentation system used for the Book of Geb"
 group = "org.gebish"
 version = "1.0"
 ext.isSnapshot = version.endsWith("-SNAPSHOT")
@@ -64,6 +66,7 @@ uploadArchives { task ->
 modifyPom {
     project {
         url "http://www.gebish.org"
+        delegate.description description
         inceptionYear "2010"
         licenses {
             license {
