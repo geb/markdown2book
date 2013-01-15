@@ -5,7 +5,7 @@ apply from: "$rootDir/gradle/idea.gradle"
 apply plugin: "signing"
 
 group = "org.gebish"
-version = "1.0-SNAPSHOT"
+version = "1.0"
 ext.isSnapshot = version.endsWith("-SNAPSHOT")
 
 repositories {
