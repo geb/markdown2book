@@ -98,16 +98,10 @@ class Generator {
 			def chapter = chapters[chapterOutputFilename]
 			def chapterToc = new StringBuilder()
 			
-			chapter.toc.each {
-				indexToc << tocEntryMarkup(it, chapterOutputFilename)
-				allToc << tocEntryMarkup(it, "all.html")
-				chapterToc << tocEntryMarkup(it, chapterOutputFilename)
-			}
-			(chapter.toc.last().lastLevel + 1).times { 
-				indexToc << "</li></ul>"
-				allToc << "</li></ul>"
-				chapterToc << "</li></ul>"
-			}
+            indexToc << tocMarkup(chapter.toc.clone(), chapterOutputFilename)
+            allToc << tocMarkup(chapter.toc.clone(), "all.html")
+            chapterToc << tocMarkup(chapter.toc.clone(), chapterOutputFilename)
+
 			chapterTemplateBindings << createChapterTemplateBinding(chapter, chapterToc)
 		}
 		
@@ -213,25 +207,33 @@ class Generator {
 		}
 	}
 
-	private tocEntryMarkup(tocEntry, outputFileName) {
-		def sb = new StringBuilder()
-		if (tocEntry.heading.level > tocEntry.lastLevel) {
-			sb << "<ul><li>"
-		} else if (tocEntry.heading.level == tocEntry.lastLevel) {
-			sb << "</li><li>"
-		} else {
-			sb << "</li></ul>" * (tocEntry.lastLevel - tocEntry.heading.level)
-		}
-		sb << "<span class='toc_number'>"
-		sb << tocEntry.prefix
-		sb << "</span>"
-		sb << "<a href='"
-		sb << outputFileName
-		sb << "#"
-		sb << tocEntry.id
-		sb << "'>"
-		sb << tocEntry.heading.title
-		sb << "</a>"
+	private tocMarkup(List toc, String outputFileName) {
+        def sb = new StringBuilder()
+        sb << '<ul>'
+        final int currentLevel = toc[0].heading.level
+        boolean done = false
+        while (!done) {
+            def tocEntry = toc[0]
+            if (tocEntry.heading.level > currentLevel) {
+                sb << '<li>' << tocMarkup(toc, outputFileName) << '</li>'
+            } else if (tocEntry.heading.level == currentLevel) {
+                sb << '<li>'
+                sb << '<span class="toc_number">' << tocEntry.prefix << '</span>'
+                sb << '<a href="' << outputFileName << "#" << tocEntry.id << '">'
+                sb << tocEntry.heading.title
+                sb << '</a>'
+                sb << '</li>'
+
+                toc.remove(0)
+            } else {
+                done = true
+            }
+
+            if (toc.empty) {
+                done = true
+            }
+        }
+        sb << '</ul>'
 		sb.toString()
 	} 
 	
