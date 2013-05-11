@@ -65,6 +65,7 @@ uploadArchives { task ->
 
 modifyPom {
     project {
+        delegate.name = rootProject.name
         url "http://www.gebish.org"
         delegate.description description
         inceptionYear "2010"
