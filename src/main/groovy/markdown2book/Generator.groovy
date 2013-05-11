@@ -211,29 +211,27 @@ class Generator {
         def sb = new StringBuilder()
         sb << '<ul>'
         final int currentLevel = toc[0].heading.level
+        boolean firstItem = true
         boolean done = false
-        while (!done) {
+        while (!toc.empty && !done) {
             def tocEntry = toc[0]
             if (tocEntry.heading.level > currentLevel) {
-                sb << '<li>' << tocMarkup(toc, outputFileName) << '</li>'
+                sb << tocMarkup(toc, outputFileName)
             } else if (tocEntry.heading.level == currentLevel) {
+                if (firstItem) firstItem = false
+                else sb << '</li>'
                 sb << '<li>'
                 sb << '<span class="toc_number">' << tocEntry.prefix << '</span>'
                 sb << '<a href="' << outputFileName << "#" << tocEntry.id << '">'
                 sb << tocEntry.heading.title
                 sb << '</a>'
-                sb << '</li>'
 
                 toc.remove(0)
             } else {
                 done = true
             }
-
-            if (toc.empty) {
-                done = true
-            }
         }
-        sb << '</ul>'
+        sb << '</li></ul>'
 		sb.toString()
 	} 
 	
