@@ -15,7 +15,6 @@ class Generator {
 	private static MARKDOWN_EXTENSIONS = ['.markdown', '.md', '.mdown']
 	private static HEADING_PATTERN = Pattern.compile("^(#+)\\s+(.*)\$")
 	private static FILENAME_SUBSTITUTE_PATTERN = Pattern.compile("^(?:\\d+-)?(.*?)\\.(?:markdown|md|mdown)\$")
-	private static MARKDOWN_PROCESSOR = new PegDownProcessor(Extensions.ALL)
 	private static TEMPLATE_ENGINE = new SimpleTemplateEngine()
 	private static TEMPLATE_EXTENSION = "html"
 	private static ALL_TEMPLATE = "all." + TEMPLATE_EXTENSION
@@ -25,16 +24,18 @@ class Generator {
 	private static CHAPTERS_DIR_NAME = 'chapters'
 	private static REFERENCES_FILE_NAME = "references.markdown"
 	private static DONT_COPY_TO_DESTINATION = [TEMPLATES_DIR_NAME, CHAPTERS_DIR_NAME, REFERENCES_FILE_NAME]
-	
+
 	private toc = []
 	private chapters = [:]
 	private references
-	
+
+    final PegDownProcessor markdownProcessor
 	final File source
 	final File destination
 	final String charset
 	
-	Generator(File source, File destination, String charset = Charset.defaultCharset().name()) {
+	Generator(File source, File destination, String charset = Charset.defaultCharset().name(), int extensions = Extensions.ALL) {
+        markdownProcessor = new PegDownProcessor(extensions)
 		if (source == null) {
 			fail("The 'source' argument can not be null")
 		}
@@ -258,7 +259,7 @@ class Generator {
 	}
 	
 	private markdown(input) {
-		MARKDOWN_PROCESSOR.markdownToHtml(input)
+		markdownProcessor.markdownToHtml(input)
 	}
 	
 	private getChaptersSourceDir() {

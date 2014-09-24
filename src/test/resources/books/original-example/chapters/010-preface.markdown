@@ -2,7 +2,10 @@
 
 ## About the Documentation
 
-The intended purpose of the documentation is to give an understanding of the main features offered by TextMate and should provide you with those details which are not easily found alone by trial-and error. The documentation is not exhaustive.
+The intended purpose of the documentation is to give an understanding
+of the main features offered by TextMate and should provide you with
+those details which are not easily found alone by trial-and error. The
+documentation is not exhaustive.
 
 You are supposed to already know what a text editor is, in particular have some experience with Cocoa's text editor control (used e.g. in TextEdit, Mail, and Xcode). While TextMate does not use that control, it does for the most part mimic its behavior.
 
